@@ -1,4 +1,4 @@
-from parsing import load_counselors
+from parsing import load_counselors, load_campers
 from functions import can_pair
 
 def main():
@@ -10,6 +10,10 @@ def main():
     print(
         can_pair(counselors[0], counselors[1])
     )
+
+    campers = load_campers("campers.csv")
+    print(f"Loaded {len(campers)} campers")
+    print(campers[0])
 
 if __name__ == "__main__":
     main()
