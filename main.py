@@ -37,5 +37,17 @@ def main():
 
     print(rbl.summary())
 
+    #print_rbl_components(rbl.campers_morning)
+    #print_rbl_components(rbl.campers_afternoon)
+
+    #print_locked_components(rbl.campers_morning)
+    #print_locked_components(rbl.campers_afternoon)
+
+    #print_draft_groups_from_locked(rbl.campers_morning)
+    #print_draft_groups_from_locked(rbl.campers_afternoon)
+
+    #print_avoid_summary(rbl.campers_morning)
+    #print_avoid_summary(rbl.campers_afternoon)
+
 if __name__ == "__main__":
     main()
