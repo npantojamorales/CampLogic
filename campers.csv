@@ -1,0 +1,135 @@
+name,age_years,age_months,gender,spoken_languages,pair_with,avoid_with,morning_group,afternoon_group,grade,siblings,friends,attends_summer_school,attends_summer_camp
+Camper 1,8,0,M,English;Arabic,,,,,2,,Camper 29,FALSE,TRUE
+Camper 2,8,9,M,English;Spanish,,,,,3,,,FALSE,TRUE
+Camper 3,6,3,M,English,,,,,1,,,FALSE,TRUE
+Camper 4,5,0,M,English,,,,,K,,,FALSE,TRUE
+Camper 5,7,7,F,English;Arabic,,,,,2,,,FALSE,TRUE
+Camper 6,7,6,F,Korean,Camper 7,,,,2,Camper 7,,FALSE,TRUE
+Camper 7,6,3,F,Korean,Camper 6,,,,1,Camper 6,,FALSE,TRUE
+Camper 8,11,4,F,English;Korean,,,,,6,Camper 93,Camper 66;Camper 129,FALSE,TRUE
+Camper 9,5,3,M,Korean,Camper 18,,,,K,,,FALSE,TRUE
+Camper 10,7,6,F,English;Mandarin,,,,,2,Camper 11;Camper 12,,FALSE,TRUE
+Camper 11,7,6,F,English;Mandarin,,,,,2,Camper 10;Camper 12,,FALSE,TRUE
+Camper 12,4,11,M,Mandarin,Camper 15,,,,K,Camper 10;Camper 11,,FALSE,TRUE
+Camper 13,10,11,F,English;Hindi,,,,,5,,,FALSE,TRUE
+Camper 14,7,8,F,English;Mandarin,,,,,2,Camper 15,,FALSE,TRUE
+Camper 15,4,11,F,English;Mandarin,Camper 12,,,,K,Camper 14,,FALSE,TRUE
+Camper 16,10,4,M,English,,,,,4,,Camper 108,FALSE,TRUE
+Camper 17,7,10,M,English,,,,,2,,,FALSE,TRUE
+Camper 18,4,6,F,Korean,Camper 9;Camper 19,,,,K,Camper 19,,FALSE,TRUE
+Camper 19,6,7,M,English;Korean,Camper 18,,,,1,Camper 18,,FALSE,TRUE
+Camper 20,6,1,F,Korean,Camper 40,,,,1,,,FALSE,TRUE
+Camper 21,6,4,F,English;Cantonese,,,,,1,Camper 22,,FALSE,TRUE
+Camper 22,10,9,F,English;Cantonese,,,,,5,Camper 21,,FALSE,TRUE
+Camper 23,9,7,F,English,,,,,4,,,FALSE,TRUE
+Camper 24,6,5,F,English,,,,,1,,,FALSE,TRUE
+Camper 25,4,9,F,Korean,Camper 27,,,,K,Camper 26;Camper 27,,FALSE,TRUE
+Camper 26,7,2,F,English;Korean,,,,,2,Camper 25;Camper 27,,FALSE,TRUE
+Camper 27,6,1,F,English;Korean,Camper 25,,,,1,Camper 25;Camper 26,,FALSE,TRUE
+Camper 28,10,10,M,English;Korean,,,,,5,,,FALSE,TRUE
+Camper 29,8,2,F,English;Cantonese,,,,,3,,Camper 1,FALSE,TRUE
+Camper 30,9,0,F,English,,,,,4,,,FALSE,TRUE
+Camper 31,8,11,M,English;Korean,,,,,3,,,FALSE,TRUE
+Camper 32,8,7,F,English;Korean,,,,,3,Camper 33,Camper 112,FALSE,TRUE
+Camper 33,5,4,M,English;Korean,,,,,K,Camper 32,,FALSE,TRUE
+Camper 34,8,0,F,Korean,Camper 49,,,,3,,,FALSE,TRUE
+Camper 35,8,5,M,English;Arabic,,,,,3,Camper 36,,FALSE,TRUE
+Camper 36,7,2,F,English;Arabic,,,,,2,Camper 35,,FALSE,TRUE
+Camper 37,8,1,M,English;Korean,,,,,3,Camper 38,,FALSE,TRUE
+Camper 38,7,11,F,English;Korean,,,,,2,Camper 37,,FALSE,TRUE
+Camper 39,9,10,F,Korean,Camper 41,,,,4,,,FALSE,TRUE
+Camper 40,6,5,M,Korean,Camper 20;Camper 93,,,,1,Camper 41,,FALSE,TRUE
+Camper 41,9,7,M,Korean,Camper 39,,,,4,Camper 40,,FALSE,TRUE
+Camper 42,5,5,F,Korean,Camper 75,,,,K,Camper 43,,FALSE,TRUE
+Camper 43,9,4,F,Korean,Camper 44;Camper 45,,,,4,Camper 42,,FALSE,TRUE
+Camper 44,9,2,M,Korean,Camper 43;Camper 45,,,,4,,,FALSE,TRUE
+Camper 45,9,6,F,Korean,Camper 43;Camper 44,,,,4,Camper 46,,FALSE,TRUE
+Camper 46,11,2,M,Korean,Camper 130,,,,5,Camper 45,,FALSE,TRUE
+Camper 47,6,9,F,English,,,,,1,Camper 48,,FALSE,TRUE
+Camper 48,9,2,M,English,,,,,4,Camper 47,,FALSE,TRUE
+Camper 49,8,10,M,Korean,Camper 34,,,,3,,,FALSE,TRUE
+Camper 50,5,11,M,English,,,,,K,,,FALSE,TRUE
+Camper 51,5,7,F,English,,,,,K,Camper 112,,FALSE,TRUE
+Camper 52,10,5,M,English;Korean,,Camper 81,,,5,Camper 53,,FALSE,TRUE
+Camper 53,7,9,F,English;Korean,,,,,2,Camper 52,,FALSE,TRUE
+Camper 54,11,5,F,English,,,,,6,,,FALSE,TRUE
+Camper 55,5,9,F,English;Hindi,,,,,K,Camper 56,,FALSE,TRUE
+Camper 56,9,9,F,English;Hindi,,,,,4,Camper 55,,FALSE,TRUE
+Camper 57,6,6,M,English;Vietnamese,,,,,1,,,FALSE,TRUE
+Camper 58,11,7,F,English,,Camper 54,,,6,,Camper 54;Camper 66,FALSE,TRUE
+Camper 59,9,4,F,English,,,,,4,Camper 60;Camper 61,,FALSE,TRUE
+Camper 60,6,11,F,English,Camper 61,,,,1,Camper 59;Camper 61,,FALSE,TRUE
+Camper 61,6,11,M,English,Camper 60,,,,1,Camper 59;Camper 60,,FALSE,TRUE
+Camper 62,9,3,F,Korean,Camper 85,,,,4,,,FALSE,TRUE
+Camper 63,6,9,F,English,,Camper 64,,,1,Camper 64,,FALSE,TRUE
+Camper 64,6,9,M,English,,Camper 63,,,1,Camper 63,,FALSE,TRUE
+Camper 65,9,1,M,English,,,,,4,Camper 66,Camper 97,FALSE,TRUE
+Camper 66,11,3,F,English,,,,,6,Camper 65,Camper 8,FALSE,TRUE
+Camper 67,9,6,F,English,,,,,4,,,FALSE,TRUE
+Camper 68,9,10,M,English,Camper 99,,,,4,,Camper 99,FALSE,TRUE
+Camper 69,7,5,M,English,,,,,2,,,FALSE,TRUE
+Camper 70,6,1,F,English;Hindi,,,,,1,,,FALSE,TRUE
+Camper 71,11,5,F,English;Mandarin,,,,,6,,,FALSE,TRUE
+Camper 72,6,11,F,English,,,,,1,,,FALSE,TRUE
+Camper 73,9,0,M,English;Korean,,,,,3,Camper 74,,FALSE,TRUE
+Camper 74,11,1,F,English;Korean,,,,,6,Camper 73,Camper 129;Camper 130,FALSE,TRUE
+Camper 75,5,9,M,Korean,Camper 42,,,,K,,,FALSE,TRUE
+Camper 76,7,7,M,English;Korean,,,,,2,,Camper 131,FALSE,TRUE
+Camper 77,7,6,M,English;Korean,,,,,2,,,FALSE,TRUE
+Camper 78,6,10,F,English;Spanish,,,,,1,,,FALSE,TRUE
+Camper 79,10,10,F,English,,,,,5,,Camper 80,FALSE,TRUE
+Camper 80,10,4,F,English;Spanish,,,,,5,,Camper 79,FALSE,TRUE
+Camper 81,10,7,M,English;Mandarin,,Camper 52,,,5,Camper 82,,FALSE,TRUE
+Camper 82,6,0,F,English;Mandarin,,,,,1,Camper 81,,FALSE,TRUE
+Camper 83,8,0,F,Korean,Camper 86,,,,2,,,FALSE,TRUE
+Camper 84,5,8,F,Cantonese,Camper 87,,,,K,,,FALSE,TRUE
+Camper 85,9,8,M,Korean,Camper 62,,,,4,,,FALSE,TRUE
+Camper 86,8,1,F,Korean,Camper 83,,,,2,,,FALSE,TRUE
+Camper 87,5,4,M,Cantonese,Camper 84,,,,K,,,FALSE,TRUE
+Camper 88,10,4,M,English;Korean,,,,,5,,,FALSE,TRUE
+Camper 89,6,5,F,English;Korean,,,,,1,Camper 130,,FALSE,TRUE
+Camper 90,8,6,M,English;Cantonese,,,,,3,,,FALSE,TRUE
+Camper 91,8,7,F,English,,,,,3,Camper 92,,TRUE,TRUE
+Camper 92,6,8,F,English,,,,,1,Camper 91,,TRUE,TRUE
+Camper 93,6,2,M,Korean,Camper 40,,,,1,Camper 8,Camper 107,TRUE,TRUE
+Camper 94,5,2,M,English;Mandarin,,,,,K,,,TRUE,TRUE
+Camper 95,6,3,F,English;Cantonese,,,,,1,Camper 96,Camper 107,TRUE,TRUE
+Camper 96,5,1,M,English;Cantonese,,,,,K,Camper 95,,TRUE,TRUE
+Camper 97,9,9,M,English,,,,,4,,Camper 65,TRUE,TRUE
+Camper 98,7,5,F,English;Mandarin;ASL,,,,,2,,,TRUE,TRUE
+Camper 99,10,10,M,English;Hindi,Camper 68,,,,5,,Camper 68,TRUE,TRUE
+Camper 100,9,0,M,English;Spanish,,,,,3,,,TRUE,TRUE
+Camper 101,5,1,M,English;Korean,,,,,K,,,TRUE,TRUE
+Camper 102,5,3,F,English;Korean,,,,,K,,,TRUE,TRUE
+Camper 103,7,3,M,English;Korean,,,,,2,Camper 105,,TRUE,TRUE
+Camper 104,10,5,M,English;Mandarin,,,,,5,,,TRUE,TRUE
+Camper 105,5,1,M,English;Mandarin,,,,,K,Camper 103,,TRUE,TRUE
+Camper 106,8,4,M,English;Cantonese,,,,,3,Camper 107,,TRUE,TRUE
+Camper 107,6,3,F,English;Cantonese,,,,,1,Camper 106,Camper 93;Camper 95,TRUE,TRUE
+Camper 108,10,9,M,English,,,,,5,,Camper 16,TRUE,TRUE
+Camper 109,6,4,M,Korean;English,Camper 123,,,,1,,,TRUE,TRUE
+Camper 110,7,8,F,English;Mandarin,,,,,2,,Camper 131,TRUE,TRUE
+Camper 111,10,4,M,English;Spanish,,,,,5,,,TRUE,TRUE
+Camper 112,8,9,F,English,,,,,3,Camper 51,Camper 32;Camper 114,TRUE,TRUE
+Camper 113,9,3,F,English,,,,,4,,,TRUE,TRUE
+Camper 114,8,9,F,English;Vietnamese,,,,,3,Camper 115,Camper 112,TRUE,TRUE
+Camper 115,6,4,F,English;Vietnamese,,,,,1,Camper 114,,TRUE,TRUE
+Camper 116,10,9,M,English,,,,,5,Camper 117,,TRUE,TRUE
+Camper 117,8,1,F,English,,,,,3,Camper 116,,TRUE,TRUE
+Camper 118,6,6,M,English;Hindi,,,,,1,,,TRUE,TRUE
+Camper 119,5,5,F,English;Hindi,,,,,K,,,TRUE,TRUE
+Camper 120,6,2,M,English,,,,,1,,,TRUE,TRUE
+Camper 121,7,3,F,English;Hindi,,,,,2,,,TRUE,TRUE
+Camper 122,8,6,M,Mandarin;English,,,,,3,Camper 123,,TRUE,TRUE
+Camper 123,6,6,F,Korean,Camper 109,,,,1,Camper 122,,TRUE,TRUE
+Camper 124,5,2,F,English;Hindi,,,,,K,,,TRUE,TRUE
+Camper 125,8,7,F,English,,,,,3,,,TRUE,TRUE
+Camper 126,5,11,F,English;Korean,,,,,K,,,TRUE,TRUE
+Camper 127,10,5,M,English;Mandarin,,Camper 128,,,5,Camper 128,,TRUE,TRUE
+Camper 128,10,5,M,English;Mandarin,,Camper 127,,,5,Camper 127,,TRUE,TRUE
+Camper 129,11,2,F,English;Korean,,,,,6,,,TRUE,TRUE
+Camper 130,11,3,M,English;Korean,,,,,6,Camper 89,Camper 74,TRUE,TRUE
+Camper 131,7,11,F,English;Mandarin,,,,,2,,Camper 110;Camper 132;Camper 76,TRUE,TRUE
+Camper 132,7,9,F,English,,,,,2,,Camper 131,TRUE,TRUE
+Camper 133,5,11,M,English;Mandarin,,,,,K,,,TRUE,TRUE
+,,,,,,,,,,,,,
