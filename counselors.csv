@@ -1,0 +1,26 @@
+﻿name,age_years,age_months,gender,spoken_languages,pair_with,avoid_with,morning_group,afternoon_group,Monday_start,Monday_end,Monday_lunch,Tuesday_start,Tuesday_end,Tuesday_lunch,Wednesday_start,Wednesday_end,Wednesday_lunch,Thursday_start,Thursday_end,Thursday_lunch,Friday_start,Friday_end,Friday_lunch,preferred_age_group,years_of_experience,is_speciality,works_summer_school,works_summer_camp
+Counselor A,32,4,F,English,Counselor B,Counselor H; Counselor F,,,7:30,4:30,12:00-1:00,7:30,4:30,12:00-1:00,7:30,4:00,,7:30,4:30,12:00-1:00,7:30,4:00,,K,4,TRUE,TRUE,TRUE
+Counselor B,25,1,F,English;Spanish,Counselor C; Counselor E; Counselor N,Counselor H,,,7:30,4:30,12:00-1:00,7:30,4:30,12:00-1:00,7:30,4:00,,7:30,4:30,12:00-1:00,8:00,5:30,,3;4,4,TRUE,TRUE,TRUE
+Counselor C,26,5,F,English;Spanish,Counselor B; Counselor E; Counselor N,Counselor D; Counselor F; Counselor H; Counselor V; Counselor W,,,7:30,4:30,12:00-1:00,7:30,4:30,12:00-1:00,7:30,4:00,,7:30,4:30,12:00-1:00,7:30,4:00,,1;2,3,TRUE,TRUE,TRUE
+Counselor D,26,11,M,English;Spanish,Counselor P; Counselor V; Counselor W,,,,7:30,4:30,12:00-1:00,7:30,4:30,12:00-1:00,7:30,4:00,,7:30,4:30,12:00-1:00,7:30,4:00,,,1,TRUE,TRUE,TRUE
+Counselor E,22,10,F,English,Counselor B; Counselor C; Counselor K,Counselor A; Counselor F; Counselor H,,,,,,,,,,,,,,,,,,,3,FALSE,FALSE,FALSE
+Counselor F,24,2,F,English,Counselor L; Counselor M; Counselor O; Counselor Q,Counselor C,,,7:30,4:00,11:30-12:30,7:30,4:00,11:30-12:30,7:30,4:00,,7:30,4:30,11:30-12:30,7:30,4:30,,K;1,2,FALSE,TRUE,TRUE
+Counselor G,22,6,F,English;Spanish,Counselor B; Counselor K; Counselor X,,,,7:30,4:30,11:30-12:30,7:30,4:00,11:30-12:30,7:30,4:00,,7:30,4:30,11:30-12:30,7:30,4:00,,3;4;5,3,FALSE,TRUE,TRUE
+Counselor H,58,2,F,English,,Counselor C,,,7:30,4:30,11:30-12:30,7:30,4:30,11:30-12:30,7:30,4:00,,7:30,4:30,11:30-12:30,7:30,4:00,,2;3;4,3,FALSE,TRUE,TRUE
+Counselor I,17,4,F,English,,,,,7:30,4:30,11:30-12:30,7:30,4:30,11:30-12:30,7:30,4:00,,7:30,4:30,11:30-12:30,7:30,4:00,,,0,FALSE,TRUE,TRUE
+Counselor J,24,1,M,English,,,,,7:30,4:30,11:30-12:30,7:30,4:30,11:30-12:30,7:30,4:00,,7:30,4:30,11:30-12:30,7:30,4:00,,,0,FALSE,TRUE,TRUE
+Counselor K,20,6,F,English,,,,,8:00,4:30,11:30-12:30,8:00,4:30,11:30-12:30,8:00,4:30,,8:00,4:30,11:30-12:30,8:00,4:00,,3;4;5,0,FALSE,TRUE,TRUE
+Counselor L,18,5,F,English;Spanish,,Counselor M; Counselor O,,,8:00,4:30,11:00-11:30,8:00,4:30,11:00-11:30,8:30,4:30,,8:00,4:30,11:00-11:30,8:00,4:00,,,0,FALSE,TRUE,TRUE
+Counselor M,27,2,F,English;Spanish,,Counselor L; Counselor Q,,,8:00,4:30,11:30-12:00,8:00,4:30,11:30-12:00,8:30,4:30,,8:00,4:30,11:30-12:00,8:00,4:00,,,0,FALSE,TRUE,TRUE
+Counselor N,19,10,F,English,Counselor B; Counselor D,,,,8:00,4:30,11:30-12:00,8:00,4:30,11:30-12:00,8:30,4:30,,8:30,4:30,11:30-12:00,8:00,4:30,,K;1,1,FALSE,TRUE,TRUE
+Counselor O,24,5,F,English,Counselor F; Counselor L; Counselor M,Counselor Q,,,8:00,4:30,11:30-12:00,8:00,4:30,11:30-12:00,8:00,4:30,,8:00,4:30,11:30-12:00,8:00,4:30,,,0,FALSE,TRUE,TRUE
+Counselor P,20,3,M,English,Counselor D,,,,8:00,4:30,11:30-12:00,8:00,4:30,11:30-12:00,8:30,4:30,,8:00,4:30,11:30-12:00,8:00,4:30,,,0,FALSE,TRUE,TRUE
+Counselor Q,27,6,F,English;Spanish,Counselor F; Counselor L; Counselor M,Counselor O,,,8:00,4:30,11:30-12:00,8:00,4:30,11:30-12:00,8:00,4:00,,8:30,4:30,11:30-12:00,8:00,4:30,,,0,FALSE,TRUE,TRUE
+Counselor R,21,7,F,English;Arabic,Counselor B; Counselor S; Counselor T; Counselor U,Counselor S,,,,,,,,,,,,,,,,,,,3,FALSE,FALSE,FALSE
+Counselor S,17,7,M,English,Counselor P; Counselor R; Counselor T; Counselor U,Counselor R,,,8:30,5:30,12:20-12:50,8:30,5:30,12:20-12:50,8:30,5:30,,8:30,5:30,12:20-12:50,8:00,5:30,,,0,FALSE,TRUE,TRUE
+Counselor T,17,11,F,English;Arabic,Counselor B; Counselor R; Counselor S; Counselor U,Counselor U,,,,,,,,,,,,,,,,,,4;5,0,FALSE,FALSE,FALSE
+Counselor U,17,11,F,English;Arabic,Counselor R; Counselor S; Counselor T,Counselor T,,,9:00,5:30,12:50-1:20,9:00,5:30,12:50-1:20,9:00,5:00,,9:00,5:30,12:50-1:20,8:00,5:30,,2;3;4,0,FALSE,TRUE,TRUE
+Counselor V,19,1,M,English,Counselor W,,,,9:00,5:30,12:50-1:20,9:00,5:30,12:50-1:20,9:00,5:30,,9:00,5:30,12:50-1:20,8:00,5:30,,,0,FALSE,TRUE,TRUE
+Counselor W,19,2,M,English;Spanish,Counselor V,,,,8:30,5:30,12:50-1:20,8:30,5:30,12:50-1:20,8:30,5:30,,8:30,5:30,12:50-1:20,8:00,5:30,,,0,FALSE,TRUE,TRUE
+Counselor X,19,6,F,English;Spanish,Counselor G; Counselor K,,,,9:00,5:30,12:50-1:20,9:00,5:30,12:50-1:20,7:30,4:30,,9:00,5:30,12:50-1:20,8:00,5:00,,2;3,0,FALSE,TRUE,TRUE
+Counselor Y,20,3,F,English,Counselor B,Counselor H,,,9:00,3:30,12:50-1:20,9:00,5:30,12:50-1:20,9:00,5:00,,9:00,5:30,12:50-1:20,8:00,5:00,,4;5,2,FALSE,TRUE,TRUE
