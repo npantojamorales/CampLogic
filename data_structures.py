@@ -1,28 +1,47 @@
 from dataclasses import dataclass, field
+from typing import List, Optional
 
 @dataclass
-class Person():
+class Person:
     name: str
     age_years: int
     age_months: int
     gender: str
-    spoken_languages: list[str] = field(default_factory=list)
-    pair_with: list[str] = field(default_factory=list)
-    avoid_with: list[str] = field(default_factory=list)
-    morning_group: int | None = None
-    afternoon_group: int | None = None
+    spoken_languages: List[str]
 
 @dataclass
 class Counselor(Person):
-    availability: dict[str, dict[str, str]] = field(default_factory=dict)
-    preferred_age_group: list[str] = field(default_factory=list)
-    years_of_experience: int = 0
-    is_speciality: bool = False
-    is_minor: bool = False
-    works_summer_school: bool = False
-    works_summer_camp: bool = False
-    
+    pair_with: List[str]
+    avoid_with: List[str]
+    morning_group: Optional[int]
+    afternoon_group: Optional[int]
 
+    monday_start: str
+    monday_end: str
+    monday_lunch: str
+
+    tuesday_start: str
+    tuesday_end: str
+    tuesday_lunch: str
+
+    wednesday_start: str
+    wednesday_end: str
+    wednesday_lunch: str
+
+    thursday_start: str
+    thursday_end: str
+    thursday_lunch: str
+
+    friday_start: str
+    friday_end: str
+    friday_lunch: str
+
+    preferred_age_group: str
+    years_of_experience: int
+    is_speciality: bool
+    works_summer_school: bool
+    works_summer_camp: bool
+    
 @dataclass
 class Camper(Person):
     grade: str = ""
