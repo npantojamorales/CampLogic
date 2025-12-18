@@ -44,8 +44,12 @@ class Counselor(Person):
     
 @dataclass
 class Camper(Person):
-    grade: str = ""
-    siblings: list[str] = field(default_factory=list)
-    friends: list[str] = field(default_factory=list)
-    attends_summer_school: bool = False
-    attends_summer_camp: bool = False
+    grade: str
+    pair_with: List[str]
+    avoid_with: List[str]
+    siblings: List[str]
+    friends: List[str]
+    attends_summer_school: bool
+    attends_summer_camp: bool
+    morning_group: Optional[int] = None
+    afternoon_group: Optional[int] = None
