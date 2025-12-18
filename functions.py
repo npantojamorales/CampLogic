@@ -257,3 +257,59 @@ def rbl_build(dataset) -> RBLResult:
         counselors_morning=counselors_morning,
         counselors_afternoon=counselors_afternoon,
     )
+
+def print_rbl_components(camper_rbl, max_show=80):
+    print(f"\n=== RBL Components ({camper_rbl.session}) ===")
+    print("Num groups:", camper_rbl.num_groups)
+    print("Num components:", len(camper_rbl.components))
+
+    shown = 0
+    for root, members in camper_rbl.components.items():
+        print(f"- component size {len(members)}: {members}")
+        shown += 1
+        if shown >= max_show:
+            break
+
+def print_locked_components(camper_rbl):
+    locked = []
+    for root, dom in camper_rbl.comp_domain.items():
+        if len(dom) == 1:
+            g = next(iter(dom))
+            locked.append((g, root))
+
+    locked.sort(key=lambda x: x[0])
+
+    print(f"\n=== Locked components ({camper_rbl.session}) ===")
+    if not locked:
+        print("None locked (no pre-assigned group numbers).")
+        return
+
+    for g, root in locked:
+        members = camper_rbl.components[root]
+        print(f"Group {g}: component size {len(members)} -> {members}")
+
+def print_draft_groups_from_locked(camper_rbl):
+    groups = {g: [] for g in range(camper_rbl.num_groups)}
+
+    for root, dom in camper_rbl.comp_domain.items():
+        if len(dom) == 1:
+            g = next(iter(dom))
+            groups[g].extend(camper_rbl.components[root])
+
+    print(f"\n=== Draft groups from locked assignments ({camper_rbl.session}) ===")
+    for g in range(camper_rbl.num_groups):
+        members = groups[g]
+        print(f"Group {g}: {len(members)} campers")
+        if members:
+            print("  ", members)
+
+def print_avoid_summary(camper_rbl, max_show=130):
+    print(f"\n=== Avoid edges summary ({camper_rbl.session}) ===")
+    items = list(camper_rbl.comp_avoid.items())
+    items.sort(key=lambda x: len(x[1]), reverse=True)
+
+    for root, avoids in items[:max_show]:
+        members = camper_rbl.components[root]
+        print(f"Component {members} avoids {len(avoids)} other components")
+
+
