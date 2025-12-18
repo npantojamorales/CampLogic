@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-from data_structures import Counselor
+from data_structures import Counselor, Camper
 
 def parse_list(value):
     """Split comma/semicolon separated strings into a list."""
@@ -10,7 +10,9 @@ def parse_list(value):
     return [p.strip() for p in parts if p.strip()]
 
 def parse_bool(value):
-    return str(value).strip().upper() == "TRUE"
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().upper() in {"TRUE", "1", "YES"}
 
 def nan_to_none(value):
     """Convert pandas NaN to Python None."""
@@ -78,3 +80,42 @@ def load_counselors(csv_path: str) -> list[Counselor]:
         )
 
     return counselors
+
+def load_campers(csv_path: str) -> list[Camper]:
+    df = pd.read_csv(csv_path)
+    df.columns = df.columns.str.strip().str.lower()
+
+    campers: list[Camper] = []
+
+    for _, row in df.iterrows():
+        morning_group = nan_to_none(row.get("morning_group"))
+        afternoon_group = nan_to_none(row.get("afternoon_group"))
+
+        if morning_group is not None:
+            morning_group = int(morning_group)
+        if afternoon_group is not None:
+            afternoon_group = int(afternoon_group)
+
+        campers.append(
+            Camper(
+                name=row["name"],
+                age_years=int(row["age_years"]),
+                age_months=int(row["age_months"]),
+                gender=row["gender"],
+                spoken_languages=parse_list(row["spoken_languages"]),
+
+                grade=str(row["grade"]).strip(),
+                pair_with=parse_list(row.get("pair_with")),
+                avoid_with=parse_list(row.get("avoid_with")),
+                siblings=parse_list(row.get("siblings")),
+                friends=parse_list(row.get("friends")),
+
+                attends_summer_school=parse_bool(row["attends_summer_school"]),
+                attends_summer_camp=parse_bool(row["attends_summer_camp"]),
+
+                morning_group=morning_group,
+                afternoon_group=afternoon_group,
+            )
+        )
+
+    return campers
