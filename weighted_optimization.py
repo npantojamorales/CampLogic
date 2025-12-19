@@ -1,5 +1,10 @@
 from collections import Counter
 
+# ================================================
+# Constraints & scoring weights
+# ================================================
+
+# Map camper grade levels to broader age groups
 GRADE_TO_AGE_GROUP = {
     "K": "K-1",
     "1": "K-1",
@@ -10,20 +15,32 @@ GRADE_TO_AGE_GROUP = {
     "6": "4-6",
 }
 
+# counselor-related scoring weights
 WEIGHTS = {
-    "preferred_age_match": 10,
-    "language_match": 2,
-    "pair_with": 8,
-    "avoid_with": -15,
+    "preferred_age_match": 10,    # counselor assigned to preferred age group
+    "language_match": 2,          # per shared language with campers
+    "pair_with": 8,               # bonus for being grouped with preferred coworkers
+    "avoid_with": -15,            # penalty for avoid-with violations
 }
 
+# camper-related scoring weights
 CAMPER_WEIGHTS = {
-    "friend_together": 5,
-    "language_match_counselor": 3,
-    "gender_balance": 10,   # per group, not per camper
+    "friend_together": 5,            # bonus per friend in same group
+    "language_match_counselor": 3,   # camper-counselor shared language
+    "gender_balance": 10,            # applied per group
 }
+
+# ================================================
+# Helper: gender balance score
+# ================================================
 
 def gender_balance_score(campers, camper_map):
+    """
+    Compute a gender balance score for a group of campers.
+    Returns a value in [0,1]
+    - 1.0 = perfectly balanced
+    - 0.0 = full imbalanced
+    """
     counts = {"M": 0, "F": 0}
 
     for name in campers:
@@ -37,13 +54,15 @@ def gender_balance_score(campers, camper_map):
 
     imbalance = abs(counts["M"] - counts["F"]) / total
     return max(0, 1 - imbalance)
+    
+# ================================================
+# Counselor scoring
+# ================================================
 
-
-def score_solution(
-    campers_by_group,
-    counselor_solution,
-    dataset
-):
+def score_solution(campers_by_group, counselor_solution, dataset):
+    """
+    Score the counselor assignment portion of a solution.
+    """
     camper_map = {c.name: c for c in dataset.campers}
     counselor_map = {c.name: c for c in dataset.counselors}
 
@@ -57,15 +76,18 @@ def score_solution(
     for g, campers in campers_by_group.items():
         ages = []
         languages = Counter()
+        
         for name in campers:
             camper = camper_map[name]
             ages.append(GRADE_TO_AGE_GROUP[camper.grade])
+            
             for lang in camper.spoken_languages:
                 languages[lang] += 1
+                
         group_ages[g] = Counter(ages)
         group_languages[g] = languages
 
-    # Score each counselor
+    # Score each counselor individually
     for counselor_name, g in counselor_solution.items():
         counselor = counselor_map[counselor_name]
         score = 0
@@ -73,17 +95,13 @@ def score_solution(
 
         campers = campers_by_group[g]
 
-        # ----------------------------
-        # Preferred age group
-        # ----------------------------
+        # preferred age group match
         if counselor.preferred_age_group:
             if group_ages[g][counselor.preferred_age_group] > 0:
                 score += WEIGHTS["preferred_age_match"]
                 reasons.append("preferred age group match")
 
-        # ----------------------------
-        # Language match (bidirectional)
-        # ----------------------------
+        # language match with campers
         if counselor.spoken_languages:
             for lang in counselor.spoken_languages:
                 matches = group_languages[g].get(lang, 0)
@@ -91,17 +109,13 @@ def score_solution(
                     score += matches * WEIGHTS["language_match"]
                     reasons.append(f"{matches} language match(es): {lang}")
 
-        # ----------------------------
-        # Pair-with bonus
-        # ----------------------------
+        # pair-with bonus
         for p in counselor.pair_with:
             if p in counselor_solution and counselor_solution[p] == g:
                 score += WEIGHTS["pair_with"]
                 reasons.append(f"paired with {p}")
 
-        # ----------------------------
-        # Avoid-with penalty
-        # ----------------------------
+        # avoid-with penalty
         for a in counselor.avoid_with:
             if a in counselor_solution and counselor_solution[a] == g:
                 score += WEIGHTS["avoid_with"]
@@ -112,31 +126,31 @@ def score_solution(
 
     return total_score, breakdown
 
-def score_campers(
-    campers_by_group,
-    counselor_solution,
-    dataset
-):
+# ================================================
+# Camper scoring
+# ================================================
+
+def score_campers(campers_by_group, counselor_solution, dataset):
+    """
+    Score the camper experience portion of a solution.
+    """
     camper_map = {c.name: c for c in dataset.campers}
     counselor_map = {c.name: c for c in dataset.counselors}
 
     score = 0
     breakdown = []
 
-    # ----------------------------
     # Group-level gender balance
-    # ----------------------------
     for g, campers in campers_by_group.items():
         balance = gender_balance_score(campers, camper_map)
         group_score = balance * CAMPER_WEIGHTS["gender_balance"]
         score += group_score
+        
         breakdown.append(
             (f"Group {g + 1}", group_score, f"gender balance = {balance:.2f}")
         )
 
-    # ----------------------------
     # Individual camper scoring
-    # ----------------------------
     for g, campers in campers_by_group.items():
         counselors_in_group = [
             c for c, cg in counselor_solution.items() if cg == g
@@ -147,7 +161,7 @@ def score_campers(
             camper_score = 0
             reasons = []
 
-            # Friends together
+            # Friends together bonus
             for f in camper.friends:
                 if f in campers:
                     camper_score += CAMPER_WEIGHTS["friend_together"]
@@ -169,11 +183,14 @@ def score_campers(
 
     return score, breakdown
 
-def score_full_solution(
-    campers_by_group,
-    counselor_solution,
-    dataset
-):
+# ================================================
+# Full solution scoring
+# ================================================
+
+def score_full_solution(campers_by_group, counselor_solution, dataset):
+    """
+    Score a complete solution by combining counselor and camper scores.
+    """
     counselor_score, counselor_breakdown = score_solution(
         campers_by_group,
         counselor_solution,
