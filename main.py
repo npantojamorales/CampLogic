@@ -1,4 +1,4 @@
-tifrom data_structures import CampDataset
+from data_structures import CampDataset
 from parsing import load_counselors, load_campers
 from rbl import rbl_build, count_session_attendance
 from cs_solver import CampCSSolver
