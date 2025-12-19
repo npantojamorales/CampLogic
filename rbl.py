@@ -3,13 +3,26 @@ from typing import Dict, Set, Tuple, List
 import pandas as pd
 import math
 
+# ================================================
+# Name lookup helpers
+# ================================================
+
 def build_name_maps(dataset) -> Tuple[Dict[str, object], Dict[str, object]]:
+    """
+    Build fast lookup dictionaries for campers and counselors by name
+    """
     camper_map = {c.name: c for c in dataset.campers}
     counselor_map = {c.name: c for c in dataset.counselors}
     return camper_map, counselor_map
 
+# ================================================
+# Counselors availability helpers
+# ================================================
+
 def counselor_works_session(counselor, session: str) -> bool:
-    # session: "morning" means summer school, "afternoon" means summer camp
+    """
+    Determine whether a counselor works during a given session
+    """
     if session == "morning":
         return bool(counselor.works_summer_school)
     if session == "afternoon":
@@ -17,10 +30,16 @@ def counselor_works_session(counselor, session: str) -> bool:
     raise ValueError("session must be 'morning' or 'afternoon'")
 
 def _has_time(value) -> bool:
+    """
+    Check whether a time field exists and is non-empty
+    """
     return value is not None and str(value).strip() != ""
 
 def counselor_has_any_availability(counselor) -> bool:
-    # If they have at least one day with both start+end, consider them usable.
+   """
+   Return True if the counselor has at least one valid work day
+   (both start and end times present).
+   """
     days = [
         ("monday_start", "monday_end"),
         ("tuesday_start", "tuesday_end"),
@@ -28,15 +47,22 @@ def counselor_has_any_availability(counselor) -> bool:
         ("thursday_start", "thursday_end"),
         ("friday_start", "friday_end"),
     ]
+
     for start_attr, end_attr in days:
         if _has_time(getattr(counselor, start_attr)) and _has_time(getattr(counselor, end_attr)):
             return True
+            
     return False
 
-# ----------------------------
-# Helper: attendance counts
-# ----------------------------
+# ================================================
+# Attendance counting helpers
+# ================================================
+
 def count_session_attendance(dataset):
+    """
+    Count campers and counselors attending each session.
+    Used to determine feasible group counts.
+    """
     campers_morning = sum(
         c.attends_summer_camp and (not c.attends_summer_school)
         for c in dataset.campers
@@ -54,9 +80,10 @@ def count_session_attendance(dataset):
 
     return campers_morning, campers_afternoon, counselors_morning, counselors_afternoon
 
-# ----------------------------
-# Group count choice (afternoon)
-# ----------------------------
+# ================================================
+# Group count selection (afternoon)
+# ================================================
+
 def choose_afternoon_groups(
     num_campers_afternoon: int,
     num_counselors_afternoon: int,
@@ -67,6 +94,12 @@ def choose_afternoon_groups(
     camper_per_counselor: int = 10,
     min_counselors_per_group: int = 2
 ) -> int:
+    """
+    Choose a feasible number of afternoon groups based on:
+    - camper counts
+    - counselor availability
+    - size and staffing constraints
+    """
     feasible = []
 
     for g in range(min_groups, max_groups + 1):
@@ -84,16 +117,21 @@ def choose_afternoon_groups(
         if num_counselors_afternoon >= counselors_needed:
             feasible.append(g)
 
+    # prefer the largest feasible group count
     return max(feasible) if feasible else min_groups
 
-# ----------------------------
-# RBL: camper eligibility for a session
-# ----------------------------
+# ================================================
+# RBL: camper domain per session
+# ================================================
+
 def camper_domain_for_session(camper, session: str, num_groups: int) -> set[int]:
     """
-    session: "morning" = MORNING CAMP GROUPS
-             "afternoon" = AFTERNOON CAMP GROUPS
-    Hard rule: summer school campers are NOT placed in morning camp groups.
+    Compute the set of valid group indices for a camper in a given session
+
+    Hard rules:
+    - Morning: camp-only campers (no summer school)
+    - Afternoon: all summer camp campers
+    - Pre-assigned group locks domain to a single value
     """
     if session == "morning":
         # morning camp groups only for camp-only kids
@@ -107,17 +145,23 @@ def camper_domain_for_session(camper, session: str, num_groups: int) -> set[int]
         if not camper.attends_summer_camp:
             return set()
 
+    # respect pre-assigned group if present
     pref = camper.morning_group if session == "morning" else camper.afternoon_group
     if pref is not None and not pd.isna(pref):
         return {int(pref)}
 
+    # otherwise, any group is allowed
     return set(range(num_groups))
 
+# ================================================
+# RBL: counselor domain per session
+# ================================================
 
-# ----------------------------
-# RBL: counselor eligibility for a session (soft pair/avoid NOT enforced)
-# ----------------------------
 def counselor_domain_for_session(counselor, session: str, num_groups: int) -> set[int]:
+    """
+    Compute the set of valid groups for a counselor in a session.
+    Soft pair/avoid constraints are not applied here
+    """
     # Hard filter: must work this session AND have availability
     if not counselor_works_session(counselor, session):
         return set()
@@ -132,12 +176,17 @@ def counselor_domain_for_session(counselor, session: str, num_groups: int) -> se
     return set(range(num_groups))
 
 
-# ----------------------------
-# RBL: build camper constraints for ONE session
-# ----------------------------
+# ================================================
+# RBL: build camper constraints for one session
+# ================================================
+
 def rbl_build_campers_for_session(dataset, session: str, num_groups: int) -> CamperRBL:
+    """
+    Build full camper RBL constraints for one session
+    """
     camper_map, _ = build_name_maps(dataset)
 
+    # filter eligible campers by session
     if session == "morning":
         names = [
             c.name for c in dataset.campers
@@ -149,9 +198,9 @@ def rbl_build_campers_for_session(dataset, session: str, num_groups: int) -> Cam
             if c.attends_summer_camp
         ]
 
-    # 1) hard must-link via pair_with
     eligible_set = set(names)  # names already filtered by session
 
+    # 1) build must-link components using union-find
     uf = UnionFind(names)
 
     for camper in dataset.campers:
@@ -162,7 +211,7 @@ def rbl_build_campers_for_session(dataset, session: str, num_groups: int) -> Cam
             if p in eligible_set:
                 uf.union(camper.name, p)
 
-    # 2) build components (clusters)
+    # 2) build connected components (clusters)
     components: Dict[str, List[str]] = {}
     for name in names:
         root = uf.find(name)
@@ -225,10 +274,15 @@ def rbl_build_campers_for_session(dataset, session: str, num_groups: int) -> Cam
         comp_avoid=comp_avoid,
     )
 
-# ----------------------------
-# RBL: build counselor domains for ONE session (soft pair/avoid not applied)
-# ----------------------------
+# ================================================
+# RBL: build counselor constraints for one session
+# ================================================
+
 def rbl_build_counselors_for_session(dataset, session: str, num_groups: int) -> CounselorRBL:
+    """
+    Build counselor domains for a single session.
+    Soft pairing constraints not handled here.
+    """
     _, counselor_map = build_name_maps(dataset)
 
     counselor_domain: Dict[str, Set[int]] = {}
@@ -242,7 +296,14 @@ def rbl_build_counselors_for_session(dataset, session: str, num_groups: int) -> 
 
     return CounselorRBL(session=session, num_groups=num_groups, counselor_domain=counselor_domain)
 
+# ================================================
+# RBL: build full model (morning + afternoon)
+# ================================================
+
 def rbl_build(dataset) -> RBLResult:
+    """
+    Build the complete RBL model for both sessions
+    """
     MORNING_GROUPS = 5
 
     campers_m, campers_a, couns_m, couns_a = count_session_attendance(dataset)
@@ -273,7 +334,14 @@ def rbl_build(dataset) -> RBLResult:
         counselors_afternoon=counselors_afternoon,
     )
 
-def print_rbl_components(camper_rbl, max_show=80):
+# ================================================
+# Debug helpers
+# ================================================
+
+def print_rbl_components(camper_rbl, max_show=100):
+    """
+    Printer camper components and their sizes
+    """
     print(f"\n=== RBL Components ({camper_rbl.session}) ===")
     print("Num groups:", camper_rbl.num_groups)
     print("Num components:", len(camper_rbl.components))
@@ -286,7 +354,11 @@ def print_rbl_components(camper_rbl, max_show=80):
             break
 
 def print_locked_components(camper_rbl):
+    """
+    Print components that are locked to a single group.
+    """
     locked = []
+    
     for root, dom in camper_rbl.comp_domain.items():
         if len(dom) == 1:
             g = next(iter(dom))
@@ -295,6 +367,7 @@ def print_locked_components(camper_rbl):
     locked.sort(key=lambda x: x[0])
 
     print(f"\n=== Locked components ({camper_rbl.session}) ===")
+    
     if not locked:
         print("None locked (no pre-assigned group numbers).")
         return
@@ -304,6 +377,9 @@ def print_locked_components(camper_rbl):
         print(f"Group {g}: component size {len(members)} -> {members}")
 
 def print_draft_groups_from_locked(camper_rbl):
+    """
+    Print a draft grouping using only locked assignments.
+    """
     groups = {g: [] for g in range(camper_rbl.num_groups)}
 
     for root, dom in camper_rbl.comp_domain.items():
@@ -312,14 +388,19 @@ def print_draft_groups_from_locked(camper_rbl):
             groups[g].extend(camper_rbl.components[root])
 
     print(f"\n=== Draft groups from locked assignments ({camper_rbl.session}) ===")
+    
     for g in range(camper_rbl.num_groups):
         members = groups[g]
         print(f"Group {g}: {len(members)} campers")
         if members:
             print("  ", members)
 
-def print_avoid_summary(camper_rbl, max_show=130):
+def print_avoid_summary(camper_rbl, max_show=200):
+    """
+    Print a summary of avoid constraints by component.
+    """
     print(f"\n=== Avoid edges summary ({camper_rbl.session}) ===")
+    
     items = list(camper_rbl.comp_avoid.items())
     items.sort(key=lambda x: len(x[1]), reverse=True)
 
