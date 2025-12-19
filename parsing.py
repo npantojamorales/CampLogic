@@ -1,34 +1,55 @@
-import pandas as pd
-import re
-from data_structures import Counselor, Camper
+from data_structures import Counselor, Camper      # custom data classes
+import pandas as pd                                # used to read and work with CSV files
+import re                                          # used for splitting strings with regex
+
+# -------------------------------------------------------------------
+# Helper parsing functions
+# -------------------------------------------------------------------
 
 def parse_list(value):
-    """Split comma/semicolon separated strings into a list."""
+    """Convert a comma/semicolon separated strings into a clean list."""
     if pd.isna(value) or str(value).strip() == "":
         return []
     parts = re.split(r"[;,]", str(value))
     return [p.strip() for p in parts if p.strip()]
 
 def parse_bool(value):
+    """Convert common string/number representations into a boolean"""
+    
+    # if the value is already a boolean, return it directly
     if isinstance(value, bool):
         return value
+
+    # normalize the value and check against "true" values
     return str(value).strip().upper() in {"TRUE", "1", "YES"}
 
 def nan_to_none(value):
     """Convert pandas NaN to Python None."""
     return None if pd.isna(value) else value
 
+# -------------------------------------------------------------------
+# Load counselors from CSV
+# -------------------------------------------------------------------
+
 def load_counselors(csv_path: str) -> list[Counselor]:
+    """Read a counselor CSV file and return a list of Counselor objects"""
+
+    # read the CSV into a pandas dataframe
     df = pd.read_csv(csv_path)
+
+    # normalize column names (lowercase and remove extra spaces)
     df.columns = df.columns.str.strip().str.lower()
 
     counselors = []
 
+    # loop through each row of the CSV
     for _, row in df.iterrows():
-        # --- clean optional numeric fields ---
+        
+        # clean optional numeric fields by converting NaN to None
         morning_group = nan_to_none(row.get("morning_group"))
         afternoon_group = nan_to_none(row.get("afternoon_group"))
 
+        # if group exists, convert them into integers
         if morning_group is not None:
             morning_group = int(morning_group)
         if afternoon_group is not None:
@@ -38,6 +59,7 @@ def load_counselors(csv_path: str) -> list[Counselor]:
         wednesday_lunch = nan_to_none(row["wednesday_lunch"])
         friday_lunch = nan_to_none(row["friday_lunch"])
 
+        # create a Counselor object using cleaned data
         counselors.append(
             Counselor(
                 name=row["name"],
@@ -51,6 +73,7 @@ def load_counselors(csv_path: str) -> list[Counselor]:
                 morning_group=morning_group,
                 afternoon_group=afternoon_group,
 
+                # weekly schedule
                 monday_start=row["monday_start"],
                 monday_end=row["monday_end"],
                 monday_lunch=row["monday_lunch"],
@@ -81,13 +104,25 @@ def load_counselors(csv_path: str) -> list[Counselor]:
 
     return counselors
 
+# -------------------------------------------------------------------
+# Load campers from CSV
+# -------------------------------------------------------------------
+
 def load_campers(csv_path: str) -> list[Camper]:
+    """Read a camper CSV file and return a list of Camper objects"""
+
+    # read the CSV into a dataframe
     df = pd.read_csv(csv_path)
+
+    # normalize column names
     df.columns = df.columns.str.strip().str.lower()
 
     campers: list[Camper] = []
 
+    # loop through each camper row
     for _, row in df.iterrows():
+
+        # clean optional group assignments
         morning_group = nan_to_none(row.get("morning_group"))
         afternoon_group = nan_to_none(row.get("afternoon_group"))
 
@@ -96,6 +131,7 @@ def load_campers(csv_path: str) -> list[Camper]:
         if afternoon_group is not None:
             afternoon_group = int(afternoon_group)
 
+        # create a Camper object
         campers.append(
             Camper(
                 name=row["name"],
