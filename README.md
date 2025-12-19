@@ -1,6 +1,6 @@
 # CampLogic - Camp Grouping & Counselor Assignment Solver
 
-This project is a constraint-based optimization system for assigning campers and counselors into balanced summer camp groups. The solver enforces hard constraints (pairings, avoidance, attendance, staffing limits) and optimizes soft preferences (friends together, language matches, age preferences, gender balance).
+This project is a constraint-based scheduling system for assigning campers and counselors into balanced summer camp groups. The solver enforces hard constraints (pairings, avoidance, attendance, staffing limits) and optimizes soft preferences (friends together, language matches, age preferences, gender balance).
 
 The system is designed for summer camp scheduling with separate morning and afternoon sessions.
 
@@ -14,7 +14,7 @@ This solver works in three main phases:
 2. RBL (Rule-Based Logic) Construction
 - Applies hard constraints using union-find clustering
 - Builds valid group domains for each camper cluster and counselor
-3. Constraint Satisfaction + Optimization
+3. Constraint Satisfaction + Weighted Objective Evaluation
 - Uses backtracking with heuristics (MRV, early pruning)
 - Assigns campers to groups first, then counselors
 - Scores the final solution using weighted soft preferences
@@ -44,7 +44,7 @@ This phase filters impossible assignments early before solving. It counts attend
 This ensures all hard constraints are satisfied before optimization. It includes a backtracking search with MRV heuristic. It features group size constraints, grade band width control and counselor feasibility checks.
 
 
-***weighted_optimization.py*** - Scores the final solution using soft constraints
+***weighted_objective_function.py*** - Scores the final solution using soft constraints
 
 Scoring includes counselor preferred age group matches, language matches between campers and counselors, friend placement, gender balance per group and pair-with bonuses and avoid-with penalties. It produces a total weighted score and detailed breakdowns for counselors and campers.
 
