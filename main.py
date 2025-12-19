@@ -1,8 +1,8 @@
-from data_structures import CampDataset
+tifrom data_structures import CampDataset
 from parsing import load_counselors, load_campers
 from rbl import rbl_build, count_session_attendance
 from cs_solver import CampCSSolver
-from weighted_optimization import score_full_solution
+from weighted_objective_function import score_full_solution
 
 def main():
     """
