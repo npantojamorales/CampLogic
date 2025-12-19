@@ -108,9 +108,9 @@ class CampCSSolver:
             )
         )
 
-    # ----------------------------
+    # --------------------------------------
     # Constraint checks
-    # ----------------------------
+    # --------------------------------------
     def _violates_group_size(self, root, g):
         """
         Check whether assigning this component would exceed max group size
@@ -139,7 +139,6 @@ class CampCSSolver:
         new_max = max(max_g, inc_max)
 
         return (new_max - new_min) > self.grade_band_width
-
 
     def _violates_avoid_constraints(self, root, g):
         """
@@ -199,9 +198,9 @@ class CampCSSolver:
 
         return needed > total_counselors
 
-    # ----------------------------
+    # --------------------------------------
     # Assignment helpers
-    # ----------------------------
+    # --------------------------------------
     def _assign(self, root, g):
         """
         Assign a camper component to a group and update group state
@@ -225,9 +224,16 @@ class CampCSSolver:
     # Backtracking search
     # ----------------------------
     def solve(self):
+        """
+        Entry point for solving the camper groupingn problem.
+        """
         return self._backtrack()
 
     def _backtrack(self):
+        """
+        Recursive backtracking search with forward-checking
+        and pruning.
+        """
         # Base case: all components assigned
         if len(self.assignment) == len(self.camper_rbl.components):
             return dict(self.assignment)
@@ -269,20 +275,29 @@ class CampCSSolver:
         return None
 
     def _check_min_group_sizes(self):
+        """
+        Verify all groups meet the minimum 
+        size requirement
+        """
         for g in range(self.num_groups):
             if self.group_state[g]["campers"] < self.min_group_size:
                 return False
         return True
 
-    # ----------------------------
+    # --------------------------------------
     # Counselor assignment (second phase)
-    # ----------------------------
+    # --------------------------------------
     def assign_counselors(self):
+        """
+        Assign counselors to groups after
+        campers have been placed.
+        """
         counselor_assignments = {}
         available = set(self.counselor_rbl.counselor_domain.keys())
 
         for g in range(self.num_groups):
             campers = self.group_state[g]["campers"]
+            
             needed = max(
                 math.ceil(campers / self.camper_per_counselor),
                 self.min_counselors_per_group
